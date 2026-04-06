@@ -17,7 +17,7 @@ Weather-AI-Oracle is a high-performance automation suite designed to identify an
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/Weather-AI-Oracle.git
+   git clone https://github.com/kamperfire/Weather-AI-Oracle.git
    cd Weather-AI-Oracle
    ```
 
