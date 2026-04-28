@@ -1,51 +1,101 @@
-# Weather-AI-Oracle 🛰️🌡️
+# Weather Market Research Bot
 
-Professional AI-driven weather prediction and automated betting bot for Polymarket.
+Python research prototype for comparing weather forecasts, market thresholds, and risk margins in a Telegram interface.
 
-## 🌟 Overview
-Weather-AI-Oracle is a high-performance automation suite designed to identify and execute statistically significant bets on weather-related markets. It combines multi-model meteorological consensus with real-time exchange data to find "safe" betting opportunities.
+The project combines open weather model data, market metadata, and a simple scoring layer. It was built as an automation experiment around data aggregation, decision support, and mobile-first monitoring.
 
-## 🚀 Key Features
-- **Multi-Model Consensus:** Aggregates data from ICON, GEM, JMA, and GFS models via Open-Meteo.
-- **Risk Analysis Engine:** Calculates "Margin of Safety" by factoring in cloud cover, historical station penalties, and model variance.
-- **Web3 Execution:** Fully automated order placement on Polymarket CLOB using Proxy wallet signatures (Signature Type 2 / Gnosis Safe).
-- **Automated Claims:** Built-in mechanism for collecting winnings from resolved markets.
-- **Telegram Interface:** Comprehensive mobile-first command center for manual overrides and portfolio monitoring.
-- **Anti-Bot Protection:** Implements browser impersonation (`curl_cffi`) and randomized delays to bypass regional geoblocks and rate limits.
+## What It Shows
 
-## 📥 Installation
+- Weather data aggregation from Open-Meteo
+- Multi-model forecast comparison
+- Threshold parsing and margin calculation
+- Telegram command interface
+- Basic Web3 / market API integration
+- Risk labels and candidate ranking
+- Runtime caching for repeated forecast calls
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/kamperfire/Weather-AI-Oracle.git
-   cd Weather-AI-Oracle
-   ```
+## Why It Is Useful
 
-2. **Install dependencies:**
-   ```bash
-   pip install py-telebot-api web3 py-clob-client python-dotenv requests curl_cffi
-   ```
+The useful engineering part is the pipeline:
 
-3. **Configure Environment:**
-   Create a `.env` file from the provided template:
-   ```env
-   BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN
-   ADMIN_ID=YOUR_TELEGRAM_USER_ID
-   POLY_PRIVATE_KEY=YOUR_ETHEREUM_PRIVATE_KEY
-   POLY_API_KEY=YOUR_POLYMARKET_API_KEY
-   POLY_API_SECRET=YOUR_POLYMARKET_API_SECRET
-   POLY_API_PASSPHRASE=YOUR_POLYMARKET_API_PASSPHRASE
-   FUNDER_ADDR=YOUR_PROXY_WALLET_ADDRESS (Gnosis Safe or EOA)
-   ```
+1. Fetch weather forecasts for selected cities.
+2. Normalize model outputs.
+3. Parse target market ranges.
+4. Calculate distance from risky thresholds.
+5. Rank candidates by confidence margin.
+6. Present the result in Telegram for manual review.
 
-## 🚦 Usage
-Run the main bot:
+This makes the repository a compact example of data automation, external API integration, and decision-support tooling.
+
+## Architecture
+
+```text
+Telegram UI
+    |
+    v
+tg_bot.py
+    |
+    +-- user commands
+    +-- candidate display
+    +-- portfolio / status actions
+    |
+    v
+weather_logic.py
+    |
+    +-- Open-Meteo requests
+    +-- forecast cache
+    +-- market title parsing
+    +-- margin and risk scoring
+```
+
+## Requirements
+
+- Python 3.10+
+- Telegram bot token
+- Optional market API credentials
+
+Install dependencies:
+
+```bash
+pip install py-telebot-api web3 py-clob-client python-dotenv requests curl_cffi
+```
+
+Create `.env` from `.env.example`:
+
+```bash
+BOT_TOKEN=your_telegram_bot_token
+ADMIN_ID=your_telegram_user_id
+POLY_PRIVATE_KEY=
+POLY_API_KEY=
+POLY_API_SECRET=
+POLY_API_PASSPHRASE=
+FUNDER_ADDR=
+```
+
+Run:
+
 ```bash
 python tg_bot.py
 ```
 
-## ⚖️ Disclaimer
-*This software is for educational and research purposes only. Betting involves significant financial risk. The authors are not responsible for any financial losses incurred through the use of this bot.*
+## Safety Notes
 
----
-**Developed with ❤️ for high-alpha infrastructure.**
+This repository is a research and automation prototype. It should not be treated as financial advice or used without manual review, risk limits, and legal compliance checks.
+
+Private keys, API credentials, and production wallet data must stay outside the repository.
+
+## Portfolio Notes
+
+The project is useful as a showcase of:
+
+- API orchestration
+- forecast data normalization
+- rule-based scoring
+- Telegram control interface
+- Web3 integration basics
+- practical automation around external data
+
+## Keywords
+
+`python`, `telegram-bot`, `weather-data`, `data-automation`, `open-meteo`, `web3`, `risk-scoring`, `api-integration`, `decision-support`
+
